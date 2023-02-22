@@ -1,0 +1,55 @@
+package com.fisa.galaxy.negocio.Impl;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.fisa.galaxy.Alfabeto.Tokens;
+import com.fisa.galaxy.constantes.ConstantesGalaxy;
+import com.fisa.galaxy.negocio.IConvertidor;
+
+public class ConvertidorImpl implements IConvertidor {
+
+	private List<Tokens> instrucciones;
+	private Map<String, String> conversionRomanos;
+	private Map<String, Double> conversionUnidadCreditos;
+	
+	public ConvertidorImpl() {
+		this.instrucciones = new ArrayList<Tokens>();
+		conversionRomanos =  new HashMap<String, String>();
+		conversionUnidadCreditos =  new HashMap<String, Double>();
+	}
+	
+	
+	@Override
+	public void leerInstrucciones() {
+		FileInputStream fstream;
+		try {
+			fstream = new FileInputStream(ConstantesGalaxy.ARCHIVO_INSTRUCCIONES);
+			BufferedReader readerArchivo = new BufferedReader(new InputStreamReader(fstream));
+			String linea;
+			while((linea = readerArchivo.readLine()) != null){
+				if(linea.isEmpty()){
+	    			break;
+	    		}else{
+	    			this.instrucciones.add(new Tokens(linea));
+	    		}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void procesarInstrucciones() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

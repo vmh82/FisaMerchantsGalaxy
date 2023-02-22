@@ -1,0 +1,13 @@
+package com.fisa.galaxy.negocio;
+
+import com.fisa.galaxy.Alfabeto.Guia;
+
+public interface IProcesador {
+	public void leerInstrucciones();
+	public void procesarInstrucciones();
+	void actualizarTransaccionEnNumerosRomanos(Guia instruccion);
+	void actualizarTransaccionDeUnidadesACreditos(Guia instruccion);
+	void crearTransaccionHowMuch(Guia instruccion);
+	void crearTransaccionHowMany(Guia instruccion);
+	void crearTransaccionNoValida();
+}

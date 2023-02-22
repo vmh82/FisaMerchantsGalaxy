@@ -1,0 +1,21 @@
+package com.fisa.galaxy.negocio.Impl;
+
+import com.fisa.galaxy.negocio.IConvertidor;
+
+public class ConvertidorImpl implements IConvertidor {
+
+	@Override
+	public int romanoADecimal(String romano) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int calcularDecimal(int decimal, int ultimoNumero, int ultimoDecimal) {
+		if (ultimoNumero > decimal){
+			return ultimoNumero - decimal;
+			} 
+		 return ultimoDecimal + decimal;
+	}
+
+}

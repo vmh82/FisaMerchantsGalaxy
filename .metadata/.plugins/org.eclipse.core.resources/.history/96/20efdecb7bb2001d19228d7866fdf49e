@@ -1,0 +1,19 @@
+package com.fisa.galaxy.negocio.Impl;
+
+import com.fisa.galaxy.negocio.IConvertidor;
+
+public class ConvertidorImpl implements IConvertidor {
+
+	@Override
+	public void leerInstrucciones() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void procesarInstrucciones() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

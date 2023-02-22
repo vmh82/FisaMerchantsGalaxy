@@ -1,0 +1,22 @@
+package com.fisa.galaxy;
+
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+import com.fisa.galaxy.Alfabeto.Guia;
+import com.fisa.galaxy.enums.InstruccionesEnum;
+
+
+public class GuiaTest {
+	Guia guia;
+	
+	private static final String REGLA_ROMANO_GLOB = "glob is I";
+		
+	@Test
+	public void romanoADecimalTest(){
+		guia = new Guia(REGLA_ROMANO_GLOB);
+		assertTrue(InstruccionesEnum.ROMANOS == guia.obtenerTipoInstruccion());
+		
+	}
+}

@@ -1,0 +1,69 @@
+package com.fisa.galaxy.negocio.Impl;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import com.fisa.galaxy.Alfabeto.Guia;
+import com.fisa.galaxy.constantes.ConstantesGalaxy;
+import com.fisa.galaxy.negocio.IProcesador;
+import com.fisa.galaxy.negocio.ITransacciones;
+
+public class ProcesadorImpl implements IProcesador {
+
+	private List<Guia> instrucciones;
+	private ITransacciones transacciones;
+
+	public ProcesadorImpl() {
+		this.instrucciones = new ArrayList<Guia>();
+		transacciones = new TransaccionesImpl();
+	}
+	
+	
+	@Override
+	public void leerInstrucciones() {
+		FileInputStream fstream;
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		try {
+			fstream = new FileInputStream(ConstantesGalaxy.ARCHIVO_INSTRUCCIONES_CONVERSION);
+			BufferedReader readerArchivo = new BufferedReader(new InputStreamReader(fstream));
+			String linea;
+			while((linea = readerArchivo.readLine()) != null){
+				if(linea.isEmpty()){
+	    			break;
+	    		}else{
+	    			this.instrucciones.add(new Guia(linea));
+	    		}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void procesarInstrucciones() {
+		for(Guia instruccion : this.instrucciones) {
+			switch(instruccion.obtenerTipoInstruccion()) {
+			case ROMANOS:
+				transacciones.actualizarTransaccionEnNumerosRomanos(instruccion);
+				break;
+			case CREDITOS :
+				transacciones.actualizarTransaccionDeUnidadesACreditos(instruccion);
+				break;
+			case INSTRUCCION_HOW_MUCH :
+				transacciones.crearTransaccionHowMuch(instruccion);
+				break;
+			case INSTRUCCION_HOW_MANY :
+				transacciones.crearTransaccionHowMany(instruccion);
+				break;
+			default :
+				transacciones.crearTransaccionNoValida();
+				break;					
+			}
+		}
+		
+	}
+
+}

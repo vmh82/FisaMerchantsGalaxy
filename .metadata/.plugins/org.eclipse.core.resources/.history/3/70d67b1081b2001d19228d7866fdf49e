@@ -1,0 +1,39 @@
+package com.fisa.galaxy.Alfabeto;
+
+import com.fisa.galaxy.enums.InstruccionesEnum;
+
+public class Tokens {
+	private String instruccion;
+	private String[] instrucciones;
+	
+	public Tokens(String linea) {
+		this.instruccion = linea.trim();
+		this.instrucciones = linea.trim().split("\\s+");
+	}
+
+	public String getInstruccion() {
+		return instruccion;
+	}
+
+	public void setInstruccion(String instruccion) {
+		this.instruccion = instruccion;
+	}
+
+	public String[] getInstrucciones() {
+		return instrucciones;
+	}
+
+	public void setInstrucciones(String[] instrucciones) {
+		this.instrucciones = instrucciones;
+	}
+	
+	public InstruccionesEnum obtenerTipoInstruccion() {
+		if (this.instrucciones.length == 3 && 
+				this.instrucciones[1].equals("is") && 
+				RomanNumbersEnum.getRomanNumberFromLetter(this.wordsArray[2].charAt(0)) != null){
+			return SentenceTypeEnum.DEFINING_ROMAN;
+		}
+	}
+
+	
+}

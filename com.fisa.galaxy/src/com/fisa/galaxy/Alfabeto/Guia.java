@@ -1,0 +1,57 @@
+package com.fisa.galaxy.Alfabeto;
+
+import com.fisa.galaxy.constantes.ConstantesGalaxy;
+import com.fisa.galaxy.enums.InstruccionesEnum;
+import com.fisa.galaxy.enums.NumerosRomanosEnum;
+
+public class Guia {
+	private String instruccion;
+	private String[] instrucciones;
+	
+	public Guia(String linea) {
+		this.instruccion = linea.trim();
+		this.instrucciones = linea.trim().split(ConstantesGalaxy.EXPRESION_ESPACIO_EN_BLANCO);
+	}
+
+	public InstruccionesEnum obtenerTipoInstruccion() {
+		if (this.instrucciones.length == 3 && 
+				this.instrucciones[1].equals(ConstantesGalaxy.TOKEN_IS) && 
+				NumerosRomanosEnum.obtenerNumeroRomano(this.instrucciones[2].charAt(0)) != null){
+			return InstruccionesEnum.ROMANOS;
+		}
+		if (this.instrucciones.length > 4 &&
+				this.instrucciones[this.instrucciones.length-1].equals(ConstantesGalaxy.TOKEN_CREDITS) &&
+				this.instrucciones[this.instrucciones.length-2].matches(ConstantesGalaxy.EXPRESION_DIGITO) &&
+				this.instrucciones[this.instrucciones.length-3].equals(ConstantesGalaxy.TOKEN_IS)){
+				return InstruccionesEnum.CREDITOS;
+			}
+		
+		if (this.instrucciones[this.instrucciones.length-1].equals(ConstantesGalaxy.TOKEN_PREGUNTA)){
+			if (this.instrucciones.length > 4 && 
+				this.instruccion.startsWith(ConstantesGalaxy.TOKEN_HOW_MUCH_IS)){
+				return InstruccionesEnum.INSTRUCCION_HOW_MUCH;
+				
+			}else if(this.instrucciones.length > 5 && 
+					 this.instruccion.startsWith(ConstantesGalaxy.TOKEN_HOW_MANY_CREDITS_IS)){
+				return InstruccionesEnum.INSTRUCCION_HOW_MANY;
+			}
+		}
+		return InstruccionesEnum.TRANSFORMACION_INVALIDA;
+	}
+	
+	public String getInstruccion() {
+		return instruccion;
+	}
+
+	public void setInstruccion(String instruccion) {
+		this.instruccion = instruccion;
+	}
+
+	public String[] getInstrucciones() {
+		return instrucciones;
+	}
+
+	public void setInstrucciones(String[] instrucciones) {
+		this.instrucciones = instrucciones;
+	}
+}

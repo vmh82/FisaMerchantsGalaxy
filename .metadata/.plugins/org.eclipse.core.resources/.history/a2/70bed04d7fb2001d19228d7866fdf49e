@@ -1,0 +1,30 @@
+package com.fisa.galaxy.Alfabeto;
+
+public class Tokens {
+	private String Token;
+	private String[] Instrucciones;
+	
+	public Tokens(String linea) {
+		this.Token = linea.trim();
+		this.Instrucciones = linea.trim().split("\\s+");
+	}
+
+	public String getToken() {
+		return Token;
+	}
+
+	public void setToken(String token) {
+		Token = token;
+	}
+
+	public String[] getInstrucciones() {
+		return Instrucciones;
+	}
+
+	public void setInstrucciones(String[] instrucciones) {
+		Instrucciones = instrucciones;
+	}
+	
+	
+	
+}

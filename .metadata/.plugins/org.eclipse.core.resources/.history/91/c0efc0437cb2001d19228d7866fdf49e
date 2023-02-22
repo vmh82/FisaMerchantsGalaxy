@@ -1,0 +1,5 @@
+package com.fisa.galaxy.constantes;
+
+public final class ConstantesGalaxy {
+	static final String ARCHIVO_INSTRUCCIONES = "archivoInstrucciones";
+}

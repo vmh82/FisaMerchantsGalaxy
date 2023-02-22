@@ -1,0 +1,27 @@
+package com.fisa.galaxy.negocio.Impl;
+
+import java.io.FileInputStream;
+
+import com.fisa.galaxy.negocio.IConvertidor;
+
+public class ConvertidorImpl implements IConvertidor {
+
+	@Override
+	public void leerInstrucciones() {
+		FileInputStream fstream;
+		try {
+			fstream = new FileInputStream()
+			
+			
+			
+		}
+		
+	}
+
+	@Override
+	public void procesarInstrucciones() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.fisa.galaxy.enums;
+
+public enum InstruccionEnum {
+	ROMANOS,
+	CREDITOS,
+	INSTRUCCION_CUANTO,
+	INSTRUCCION_CUANTOS,
+	TRANSACCION_INVALIDA;
+}

@@ -1,0 +1,7 @@
+INDEX VERSION 1.131+C:\Users\DEV88\Documents\WsMerchantGuideToGalaxy\.metadata\.plugins\org.eclipse.jdt.core
+705833626.index
+1865797976.index
+1370142923.index
+1728742478.index
+1836791356.index
+528537302.index

@@ -1,0 +1,57 @@
+package com.fisa.galaxy.Alfabeto;
+
+import com.fisa.galaxy.enums.InstruccionesEnum;
+import com.fisa.galaxy.enums.NumerosRomanosEnum;
+
+public class Tokens {
+	private String instruccion;
+	private String[] instrucciones;
+	
+	public Tokens(String linea) {
+		this.instruccion = linea.trim();
+		this.instrucciones = linea.trim().split("\\s+");
+	}
+
+	public String getInstruccion() {
+		return instruccion;
+	}
+
+	public void setInstruccion(String instruccion) {
+		this.instruccion = instruccion;
+	}
+
+	public String[] getInstrucciones() {
+		return instrucciones;
+	}
+
+	public void setInstrucciones(String[] instrucciones) {
+		this.instrucciones = instrucciones;
+	}
+	
+	public InstruccionesEnum obtenerTipoInstruccion() {
+		if (this.instrucciones.length == 3 && 
+				this.instrucciones[1].equals("is") && 
+				NumerosRomanosEnum.obtenerNumeroRomano(this.instrucciones[2].charAt(0)) != null){
+			return InstruccionesEnum.ROMANOS;
+		}
+		if (this.instrucciones.length > 4 &&
+				this.instrucciones[this.instrucciones.length-1].equals("Credits") &&
+				this.instrucciones[this.instrucciones.length-2].matches("\\d+") &&
+				this.instrucciones[this.instrucciones.length-3].equals("is")){
+				return InstruccionesEnum.CREDITOS;
+			}
+		
+		if (this.instrucciones[this.instrucciones.length-1].equals("?")){
+			if (this.instrucciones.length > 4 && 
+				this.instruccion.startsWith("how much is")){
+				return InstruccionesEnum.INSTRUCCION_CUANTO;	
+			}else if(this.instrucciones.length > 5 && 
+					 this.instruccion.startsWith("how many Credits is")){
+				return InstruccionesEnum.INSTRUCCION_CUANTOS;
+			}
+		}
+		
+	}
+
+	
+}

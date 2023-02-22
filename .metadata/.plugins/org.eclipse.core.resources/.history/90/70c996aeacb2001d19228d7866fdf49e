@@ -1,0 +1,6 @@
+package com.fisa.galaxy.negocio;
+
+public interface IProcesador {
+	public void leerInstrucciones();
+	public void procesarInstrucciones();
+}

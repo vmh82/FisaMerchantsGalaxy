@@ -1,0 +1,11 @@
+package com.fisa.galaxy.negocio;
+
+/**
+ * Interface con reglas de negocio para convertir numeros romanos a su valor decimal
+ * @author Victor Maldonado
+ *
+ */
+public interface IConvertidor {
+	public int romanoADecimal(String romano);
+	public int calcularDecimal(int decimal, int ultimoNumero, int ultimoDecimal);
+}

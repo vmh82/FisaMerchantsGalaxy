@@ -1,0 +1,23 @@
+package com.fisa.galaxy;
+
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.fisa.galaxy.negocio.IConvertidor;
+import com.fisa.galaxy.negocio.Impl.ConvertidorImpl;
+
+public class TransaccionTest {
+	
+	@Before
+	public void setUp() {
+	}
+		
+	@Test
+	public void romanoADecimalTest(){
+		
+
+		
+	}
+}

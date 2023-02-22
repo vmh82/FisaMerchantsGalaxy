@@ -1,0 +1,29 @@
+package com.fisa.galaxy.negocio.Impl;
+
+import com.fisa.galaxy.enums.NumerosRomanosEnum;
+import com.fisa.galaxy.negocio.IConvertidor;
+
+public class ConvertidorImpl implements IConvertidor {
+
+	@Override
+	public int romanoADecimal(String romano) {
+		 int decimal = 0;
+	        int lastNumber = 0;
+	        for (int i = romano.length() - 1; i >= 0 ; i--) {
+	            NumerosRomanosEnum romanNumberEnum = NumerosRomanosEnum.obtenerNumeroRomano(romano.charAt(i));
+	            if (romanNumberEnum != null){
+		            decimal = calcularDecimal(romanNumberEnum.getValue(), lastNumber, decimal);            
+		            lastNumber = romanNumberEnum.getValue();
+	            }
+	        }
+	        return decimal;
+	}
+
+	@Override
+	public int calcularDecimal(int decimal, int ultimoNumero, int ultimoDecimal) {
+		if (ultimoNumero > decimal){
+			return ultimoDecimal - decimal;
+			} 
+		 return ultimoDecimal + decimal;
+	}
+}

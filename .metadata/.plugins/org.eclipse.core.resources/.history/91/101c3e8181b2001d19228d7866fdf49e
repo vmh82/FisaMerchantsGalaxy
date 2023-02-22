@@ -1,0 +1,6 @@
+package com.fisa.galaxy.negocio;
+
+public interface IConvertidor {
+	public void leerInstrucciones();
+	public void procesarInstrucciones();
+}

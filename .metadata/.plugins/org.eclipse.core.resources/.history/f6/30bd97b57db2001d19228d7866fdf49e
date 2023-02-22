@@ -1,0 +1,9 @@
+package com.fisa.galaxy.enums;
+
+public enum PreguntasEnum {
+	DEFINICION_ROMANOS,
+	DEFINICION_CREDITIOS,
+	PREGUNTA_CUANTO,
+	PREGUNTA_CUANTOS,
+	TRANSACCION_INVALIDA;
+}

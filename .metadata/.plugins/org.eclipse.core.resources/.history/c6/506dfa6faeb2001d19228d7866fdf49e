@@ -1,0 +1,10 @@
+package com.fisa.galaxy.util;
+
+public class Data {
+	
+	public void GenerarDataTest() {
+		
+		
+		
+	}
+}

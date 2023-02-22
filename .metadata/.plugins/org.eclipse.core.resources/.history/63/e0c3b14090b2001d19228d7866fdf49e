@@ -1,0 +1,48 @@
+package com.fisa.galaxy.negocio.Impl;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.fisa.galaxy.Alfabeto.Guia;
+import com.fisa.galaxy.negocio.IConvertidor;
+import com.fisa.galaxy.negocio.ITransacciones;
+
+public class TransaccionesImpl implements ITransacciones{
+
+	
+	private Map<String, String> transaccionEnNumerosRomanos;
+	private Map<String, Double> transaccionDeUnidadACreditos;
+	private IConvertidor convertidor;
+	
+	
+	public TransaccionesImpl() {
+		convertidor = new ConvertidorImpl();
+		transaccionEnNumerosRomanos =  new HashMap<String, String>();
+		transaccionDeUnidadACreditos =  new HashMap<String, Double>();
+	}
+	
+	@Override
+	public void actualizarTransaccionEnNumerosRomanos(Guia instruccion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actualizarTransaccionDeUnidadesACreditos(Guia instruccion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void crearTransaccionHowMuch(Guia instruccion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void crearTransaccionHowMany(Guia instruccion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

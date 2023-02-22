@@ -1,0 +1,5 @@
+package com.fisa.galaxy.negocio;
+
+public interface IOperaciones {
+
+}

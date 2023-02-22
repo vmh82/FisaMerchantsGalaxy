@@ -1,0 +1,14 @@
+package com.fisa.galaxy;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class TransaccionTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

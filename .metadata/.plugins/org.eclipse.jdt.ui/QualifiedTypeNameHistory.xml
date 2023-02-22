@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+    <fullyQualifiedTypeName name="java.io.BufferedReader"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.Alfabeto.Tokens"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.enums.InstruccionEnum"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.negocio.IProcesador"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.enums.NumerosRomanosEnum"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.constantes.ConstantesGalaxy"/>
+    <fullyQualifiedTypeName name="java.io.InputStream"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.negocio.ITransacciones"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.negocio.Impl.TransaccionesImpl"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.negocio.IConvertidor"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.negocio.Impl.ConvertidorImpl"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.enums.InstruccionesEnum"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.negocio.Impl.ProcesadorImpl"/>
+    <fullyQualifiedTypeName name="com.fisa.galaxy.Alfabeto.Guia"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+</qualifiedTypeNameHistroy>

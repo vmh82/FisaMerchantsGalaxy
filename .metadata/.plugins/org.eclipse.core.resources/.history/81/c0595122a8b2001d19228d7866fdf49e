@@ -1,0 +1,9 @@
+package com.fisa.galaxy;
+
+import com.fisa.galaxy.negocio.IConvertidor;
+
+public class ConvertidorTest {
+
+
+	IConvertidor convertidor;
+}

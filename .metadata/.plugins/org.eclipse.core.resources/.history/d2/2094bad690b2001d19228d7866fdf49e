@@ -1,0 +1,100 @@
+package com.fisa.galaxy.negocio.Impl;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.fisa.galaxy.Alfabeto.Guia;
+import com.fisa.galaxy.negocio.IConvertidor;
+import com.fisa.galaxy.negocio.ITransacciones;
+
+public class TransaccionesImpl implements ITransacciones{
+	
+	private Map<String, String> transaccionEnNumerosRomanos;
+	private Map<String, Double> transaccionDeUnidadACreditos;
+	private IConvertidor convertidor;
+
+	public TransaccionesImpl() {
+		convertidor = new ConvertidorImpl();
+		transaccionEnNumerosRomanos =  new HashMap<String, String>();
+		transaccionDeUnidadACreditos =  new HashMap<String, Double>();
+	}
+	
+	@Override
+	public void actualizarTransaccionEnNumerosRomanos(Guia instruccion) {
+		transaccionEnNumerosRomanos.put(instruccion.getInstrucciones()[0], instruccion.getInstrucciones()[2]);
+		
+	}
+
+	@Override
+	public void actualizarTransaccionDeUnidadesACreditos(Guia instruccion) {
+		StringBuilder romanNumberBuilder = new StringBuilder();
+		String unidadIntergalactica = "";
+		int creditos = -1;
+		for(String token : instruccion.getInstrucciones()){
+			if (!token.equals("is") && !token.equals("Credits")){
+				String romanLetter = transaccionEnNumerosRomanos.get(token);
+				if (romanLetter != null){
+					romanNumberBuilder.append(romanLetter);
+				} else if (unidadIntergalactica.isEmpty()){
+					unidadIntergalactica = token;
+				} else{
+					creditos = Integer.parseInt(token);
+				}
+			}
+		}
+		int romanIntValue = convertidor.romanoADecimal(romanNumberBuilder.toString());
+		double valueOfIntergalaticUnit = (double) creditos/romanIntValue;
+		transaccionDeUnidadACreditos.put(unidadIntergalactica, valueOfIntergalaticUnit);
+		
+	}
+
+	@Override
+	public void crearTransaccionHowMuch(Guia instruccion) {
+		StringBuilder romanNumberBuilder = new StringBuilder();
+		StringBuilder intergalaticAnswerHowMuchBuilder = new StringBuilder();
+		for(int i=3; i < instruccion.getInstrucciones().length-1; i++){
+			String romanLetter = transaccionEnNumerosRomanos.get(instruccion.getInstrucciones()[i]);
+			if (romanLetter != null){
+				//found the word in the intergalatic Roman map
+				romanNumberBuilder.append(romanLetter);
+				intergalaticAnswerHowMuchBuilder.append(instruccion.getInstrucciones()[i] + " ");
+			}else{
+				//error - word not found
+				handleInvalidSentence();
+				return;
+			}
+		}
+		int romanIntValue = convertidor.romanoADecimal(romanNumberBuilder.toString());
+		intergalaticAnswerHowMuchBuilder.append("is " + romanIntValue);
+		System.out.println(intergalaticAnswerHowMuchBuilder.toString());
+		
+	}
+
+	@Override
+	public void crearTransaccionHowMany(Guia instruccion) {
+		double intergalaticCredits = 1;
+		StringBuilder romanNumberBuilder = new StringBuilder();
+		StringBuilder intergalaticAnswerHowManyBuilder = new StringBuilder();
+		for(int i=4; i < instruccion.getInstrucciones().length-1; i++){
+			String romanLetter = transaccionEnNumerosRomanos.get(instruccion.getInstrucciones()[i]);
+			if (romanLetter != null){
+				//found the word in the intergalatic Roman map
+				romanNumberBuilder.append(romanLetter);
+				intergalaticAnswerHowManyBuilder.append(instruccion.getInstrucciones()[i] + " ");
+			}else if (transaccionDeUnidadACreditos.containsKey(instruccion.getInstrucciones()[i])){
+				//found the word in the intergalatic unit credits map
+				intergalaticCredits = transaccionDeUnidadACreditos.get(instruccion.getInstrucciones()[i]);
+				intergalaticAnswerHowManyBuilder.append(instruccion.getInstrucciones()[i] + " ");				
+			}else{
+				//error - word not found
+				handleInvalidSentence();
+				return;
+			}
+		}
+		int romanIntValue = convertidor.romanoADecimal(romanNumberBuilder.toString());
+		Double creditsAnswer = new Double(romanIntValue * intergalaticCredits);
+		intergalaticAnswerHowManyBuilder.append("is " + creditsAnswer.intValue() + " Credits");		
+		System.out.println(intergalaticAnswerHowManyBuilder.toString());
+	}
+
+}

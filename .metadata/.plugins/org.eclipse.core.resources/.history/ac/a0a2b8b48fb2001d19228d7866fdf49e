@@ -1,0 +1,11 @@
+package com.fisa.galaxy.negocio;
+
+import com.fisa.galaxy.Alfabeto.Guia;
+
+public interface IOperaciones {
+
+	void actualizarTransaccionEnNumerosRomanos(Guia instruccion);
+	void actualizarTransaccionDeUnidadesACreditos(Guia instruccion);
+	void crearTransaccionHowMuch(Guia instruccion);
+	void crearTransaccionHowMany(Guia instruccion);
+}

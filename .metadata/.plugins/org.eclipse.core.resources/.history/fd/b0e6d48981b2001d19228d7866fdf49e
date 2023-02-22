@@ -1,0 +1,18 @@
+package com.fisa.galaxy.negocio.Impl;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.fisa.galaxy.Alfabeto.Tokens;
+import com.fisa.galaxy.constantes.ConstantesGalaxy;
+import com.fisa.galaxy.negocio.IConvertidor;
+
+public class ConvertidorImpl {
+
+}

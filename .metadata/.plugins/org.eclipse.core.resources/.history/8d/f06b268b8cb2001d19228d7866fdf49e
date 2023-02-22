@@ -1,0 +1,7 @@
+package com.fisa.galaxy.constantes;
+
+public final class ConstantesGalaxy {
+	public static final String ARCHIVO_INSTRUCCIONES_CONVERSION = "Instrucciones";
+	public static final String TOKEN_HOW_MUCH_IS = "how much is";
+	public static final String TOKEN_HOW_MANY_CREDITS_IS = "how many Credits is";
+}

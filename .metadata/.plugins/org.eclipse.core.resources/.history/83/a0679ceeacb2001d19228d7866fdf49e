@@ -1,0 +1,14 @@
+package com.fisa.galaxy.negocio.Impl;
+
+import java.util.HashMap;
+import java.util.Map;
+import com.fisa.galaxy.Alfabeto.Guia;
+import com.fisa.galaxy.constantes.ConstantesGalaxy;
+import com.fisa.galaxy.negocio.IConvertidor;
+import com.fisa.galaxy.negocio.ITransacciones;
+
+public class TransaccionesImpl implements ITransacciones{
+	
+	
+
+}

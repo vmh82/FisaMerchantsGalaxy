@@ -1,0 +1,24 @@
+package com.fisa.galaxy.negocio;
+
+/**
+ * Interface con reglas de negocio para convertir numeros romanos a su valor decimal
+ * @author Victor Maldonado
+ *
+ */
+public interface IConvertidor {
+	/**
+	 * Permite realizar la conversion de un numero romano a su valor en decimal
+	 * @param romano
+	 * @return numero decimal
+	 */
+	public int romanoADecimal(String romano);
+	/**
+	 * Calculo de valores entre numeros romanos a su valor total utilizando la regla
+	 * Cuando los valores más pequeños preceden a los valores más grandes, los valores más pequeños se restan de los valores más grandes y el resultado se suma
+	 * @param decimal
+	 * @param ultimoNumero
+	 * @param ultimoDecimal
+	 * @return
+	 */
+	public int calcularDecimal(int decimal, int ultimoNumero, int ultimoDecimal);
+}

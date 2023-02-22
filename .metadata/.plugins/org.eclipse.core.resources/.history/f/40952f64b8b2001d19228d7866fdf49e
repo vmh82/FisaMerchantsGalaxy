@@ -1,0 +1,198 @@
+package com.fisa.galaxy.negocio.Impl;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.fisa.galaxy.Alfabeto.Guia;
+import com.fisa.galaxy.constantes.ConstantesGalaxy;
+import com.fisa.galaxy.negocio.IConvertidor;
+import com.fisa.galaxy.negocio.IProcesador;
+public class ProcesadorImpl implements IProcesador {
+
+	private List<Guia> instrucciones;
+	private Map<String, String> transaccionEnNumerosRomanos;
+	private Map<String, Double> transaccionDeUnidadACreditos;
+	private IConvertidor convertidor;
+
+	public ProcesadorImpl() {
+		this.instrucciones = new ArrayList<Guia>();
+		convertidor = new ConvertidorImpl();
+		transaccionEnNumerosRomanos =  new HashMap<String, String>();
+		transaccionDeUnidadACreditos =  new HashMap<String, Double>();
+	}
+	
+	
+	@Override
+	public void leerInstrucciones() {
+		FileInputStream fstream;
+		try {
+			ClassLoader loaderContext = Thread.currentThread().getContextClassLoader();
+			InputStream inputStreamArchivo = loaderContext.getResourceAsStream(ConstantesGalaxy.ARCHIVO_INSTRUCCIONES_CONVERSION);
+			BufferedReader readerArchivo = new BufferedReader(new InputStreamReader(inputStreamArchivo));
+			String linea;
+			System.out.println(ConstantesGalaxy.INPUT_EJERCICIO);
+			while((linea = readerArchivo.readLine()) != null){
+				if(linea.isEmpty()){
+	    			break;
+	    		}else{
+	    			System.out.println(linea);
+	    			this.instrucciones.add(new Guia(linea));
+	    		}
+			}
+			System.out.println();
+			System.out.println(ConstantesGalaxy.OUTPUT_EJERCICIO);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void procesarInstrucciones() {
+		for(Guia instruccion : this.instrucciones) {
+			switch(instruccion.obtenerTipoInstruccion()) {
+			case ROMANOS:
+				actualizarTransaccionEnNumerosRomanos(instruccion);
+				break;
+			case CREDITOS :
+				actualizarTransaccionDeUnidadesACreditos(instruccion);
+				break;
+			case INSTRUCCION_HOW_MUCH :
+				crearTransaccionHowMuch(instruccion);
+				break;
+			case INSTRUCCION_HOW_MANY :
+				crearTransaccionHowMany(instruccion);
+				break;
+			default :
+				crearTransaccionNoValida();
+				break;					
+			}
+		}
+	}
+
+
+	public List<Guia> getInstrucciones() {
+		return instrucciones;
+	}
+
+
+	public void setInstrucciones(List<Guia> instrucciones) {
+		this.instrucciones = instrucciones;
+	}
+
+
+	@Override
+	public void actualizarTransaccionEnNumerosRomanos(Guia instruccion) {
+		transaccionEnNumerosRomanos.put(instruccion.getInstrucciones()[0], instruccion.getInstrucciones()[2]);
+		
+	}
+
+	@Override
+	public void actualizarTransaccionDeUnidadesACreditos(Guia instruccion) {
+		StringBuilder numerosRomanosBuilder = new StringBuilder();
+		String unidadIntergalactica = "";
+		int creditos = -1;
+		for(String token : instruccion.getInstrucciones()){
+			if (!token.equals(ConstantesGalaxy.TOKEN_IS) && !token.equals(ConstantesGalaxy.TOKEN_CREDITS)){
+				String caracterRomano = transaccionEnNumerosRomanos.get(token);
+				if (caracterRomano != null){
+					numerosRomanosBuilder.append(caracterRomano);
+				} else if (unidadIntergalactica.isEmpty()){
+					unidadIntergalactica = token;
+				} else{
+					creditos = Integer.parseInt(token);
+				}
+			}
+		}
+		int valorNumericoRomano = convertidor.romanoADecimal(numerosRomanosBuilder.toString());
+		double valorUnidadIntergalactica = (double) creditos/valorNumericoRomano;
+		transaccionDeUnidadACreditos.put(unidadIntergalactica, valorUnidadIntergalactica);
+		
+	}
+
+	@Override
+	public void crearTransaccionHowMuch(Guia instruccion) {
+		StringBuilder numerosRomanosBuilder = new StringBuilder();
+		StringBuilder unidadIntergalactica = new StringBuilder();
+		for(int i=3; i < instruccion.getInstrucciones().length-1; i++){
+			String caracterRomano = transaccionEnNumerosRomanos.get(instruccion.getInstrucciones()[i]);
+			if (caracterRomano != null){
+				numerosRomanosBuilder.append(caracterRomano);
+				unidadIntergalactica.append(instruccion.getInstrucciones()[i] + " ");
+			}else{
+				
+				crearTransaccionNoValida();
+				return;
+			}
+		}
+		int valorNumericoRomano = convertidor.romanoADecimal(numerosRomanosBuilder.toString());
+		unidadIntergalactica.append(ConstantesGalaxy.TOKEN_IS + " "+ valorNumericoRomano);
+		System.out.println(unidadIntergalactica.toString());
+		
+	}
+
+	@Override
+	public void crearTransaccionHowMany(Guia instruccion) {
+		double creditosIntergalacticos = 1;
+		StringBuilder numerosRomanosBuilder = new StringBuilder();
+		StringBuilder unidadIntergalactica = new StringBuilder();
+		for(int i=4; i < instruccion.getInstrucciones().length-1; i++){
+			String caracterRomano = transaccionEnNumerosRomanos.get(instruccion.getInstrucciones()[i]);
+			if (caracterRomano != null){
+				numerosRomanosBuilder.append(caracterRomano);
+				unidadIntergalactica.append(instruccion.getInstrucciones()[i] + " ");
+			}else if (transaccionDeUnidadACreditos.containsKey(instruccion.getInstrucciones()[i])){
+				creditosIntergalacticos = transaccionDeUnidadACreditos.get(instruccion.getInstrucciones()[i]);
+				unidadIntergalactica.append(instruccion.getInstrucciones()[i] + " ");				
+			}else{
+				crearTransaccionNoValida();
+				return;
+			}
+		}
+		int valorNumericoRomano = convertidor.romanoADecimal(numerosRomanosBuilder.toString());
+		Double converionCreditos = new Double(valorNumericoRomano * creditosIntergalacticos);
+		unidadIntergalactica.append("is " + converionCreditos.intValue() + " Credits");		
+		System.out.println(unidadIntergalactica.toString());
+	}
+	
+	public void crearTransaccionNoValida() {
+		System.out.println(ConstantesGalaxy.TRANSACCION_NO_VALIDA);		
+	}
+
+
+	public Map<String, String> getTransaccionEnNumerosRomanos() {
+		return transaccionEnNumerosRomanos;
+	}
+
+
+	public void setTransaccionEnNumerosRomanos(Map<String, String> transaccionEnNumerosRomanos) {
+		this.transaccionEnNumerosRomanos = transaccionEnNumerosRomanos;
+	}
+
+
+	public Map<String, Double> getTransaccionDeUnidadACreditos() {
+		return transaccionDeUnidadACreditos;
+	}
+
+
+	public void setTransaccionDeUnidadACreditos(Map<String, Double> transaccionDeUnidadACreditos) {
+		this.transaccionDeUnidadACreditos = transaccionDeUnidadACreditos;
+	}
+
+
+	public IConvertidor getConvertidor() {
+		return convertidor;
+	}
+
+
+	public void setConvertidor(IConvertidor convertidor) {
+		this.convertidor = convertidor;
+	}
+
+}
